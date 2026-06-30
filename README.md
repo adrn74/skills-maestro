@@ -19,7 +19,7 @@ C'est tout. Automatiquement :
 
 **Prérequis** : [Cursor](https://cursor.com), Python 3.9+, `git` ou `curl`+`tar`.
 
-### Repo pas encore publié ?
+### Installation depuis le clone
 
 ```bash
 git clone https://github.com/adrn74/skills-maestro.git
@@ -29,7 +29,7 @@ cd skills-maestro && ./install.sh
 ### Variables optionnelles
 
 ```bash
-SKILLS_MAESTRO_REPO=https://github.com/you/fork.git curl -fsSL .../install.sh | bash
+SKILLS_MAESTRO_REPO=https://github.com/adrn74/skills-maestro.git curl -fsSL https://raw.githubusercontent.com/adrn74/skills-maestro/main/install.sh | bash
 SKILLS_MAESTRO_HOME=~/.cursor/skills-maestro   # chemin d'install
 ```
 
