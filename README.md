@@ -1,97 +1,85 @@
 # Skills Maestro
 
-Orchestrateur open source pour [Cursor](https://cursor.com) : route automatiquement vers les **bons agent skills** parmi des centaines d'installés, sans exploser le budget tokens.
+Open-source orchestrator for [Cursor](https://cursor.com): automatically routes to the **right agent skills** among hundreds installed, without blowing the token budget.
 
-Dis « fait un audit sécurité réseau » ou « analyse le code avec tes skills » — Maestro fait le reste.
+Say “run a network security audit” or “analyze the code with your skills” — Maestro handles the rest.
 
-## Installation (une commande)
+## One-command install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/adrn74/skills-maestro/main/install.sh | bash
 ```
 
-C'est tout. Automatiquement :
+That's it. Automatically:
 
-- installe les scripts dans `~/.cursor/skills-maestro/`
-- active la règle Cursor `auto-skills-orchestrator.mdc`
-- indexe tous tes skills déjà présents
-- prêt à l'emploi dans une **nouvelle conversation**
+- installs scripts into `~/.cursor/skills-maestro/`
+- enables the Cursor rule `auto-skills-orchestrator.mdc`
+- indexes all skills already on your machine
+- ready to use in a **new chat**
 
-**Prérequis** : [Cursor](https://cursor.com), Python 3.9+, `git` ou `curl`+`tar`.
+**Requirements**: [Cursor](https://cursor.com), Python 3.9+, `git` or `curl`+`tar`.
 
-### Installation depuis le clone
+### Install from clone
 
 ```bash
 git clone https://github.com/adrn74/skills-maestro.git
 cd skills-maestro && ./install.sh
 ```
 
-### Variables optionnelles
+### Optional environment variables
 
 ```bash
 SKILLS_MAESTRO_REPO=https://github.com/adrn74/skills-maestro.git curl -fsSL https://raw.githubusercontent.com/adrn74/skills-maestro/main/install.sh | bash
-SKILLS_MAESTRO_HOME=~/.cursor/skills-maestro   # chemin d'install
+SKILLS_MAESTRO_HOME=~/.cursor/skills-maestro   # install path
 ```
 
-## Utilisation
+## Usage
 
-Aucune config obligatoire. Parle normalement à Cursor :
+No required configuration. Talk to Cursor normally:
 
-- « Fait un audit sécurité réseau »
-- « Analyse le code avec tes skills »
-- « C'est performant ? »
-- « Redesign le dashboard »
+- “Run a network security audit”
+- “Analyze the code with your skills”
+- “Is this performant?”
+- “Redesign the dashboard”
 
-L'agent annonce les skills utilisés en tête de réponse.
+The agent announces which skills were used at the top of each response.
 
-### Test manuel
+### Manual test
 
 ```bash
-python3 ~/.cursor/skills-maestro/resolve-skills.py "audit sécurité réseau"
+python3 ~/.cursor/skills-maestro/resolve-skills.py "network security audit"
 ```
 
-### Après installation de nouveaux skills
+### After installing new skills
 
 ```bash
 python3 ~/.cursor/skills-maestro/build-index.py
 ```
 
-### Personnalisation (optionnelle)
+### Customization (optional)
 
-Édite `~/.cursor/skills-maestro/config/project-context.json` pour ajouter le contexte de ton stack — **pas requis** pour démarrer.
+Edit `~/.cursor/skills-maestro/config/project-context.json` to add your stack context — **not required** to get started.
 
-## Fonctionnalités
+## Features
 
 | | |
 |---|---|
-| Langage naturel | Pas besoin de connaître les slugs |
-| Mode auto | Décompose « audit réseau » → firewall, wireshark, IDS… |
-| Budget tokens | Max 8 SKILL.md complets + 5 descriptions |
-| Vitesse | ~200 ms sur 800+ skills |
-| Catégories | design, cursor, dev, security |
+| Natural language | No need to know skill slugs |
+| Auto mode | Expands “network audit” → firewall, wireshark, IDS… |
+| Token budget | Max 8 full SKILL.md files + 5 descriptions |
+| Speed | ~200 ms across 800+ skills |
+| Categories | design, cursor, dev, security |
 
 ## Architecture
 
 ```
-Demande utilisateur
-    → expand-intent (intentions)
-    → resolve-skills (score + paliers)
+User request
+    → expand-intent (intents)
+    → resolve-skills (scoring + tiers)
     → essential (≤8) + context (≤5)
-    → réponse + Skills utilisés
+    → response + Skills used
 ```
 
-## Licence
+## License
 
 MIT — [LICENSE](LICENSE)
-
----
-
-## English
-
-**One-command install:**
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/adrn74/skills-maestro/main/install.sh | bash
-```
-
-Open a new Cursor chat. Ask anything in plain language. No config required.

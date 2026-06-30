@@ -99,7 +99,7 @@ count_skills() {
 
 smoke_test() {
   local out
-  out="$(python3 "$MAESTRO_HOME/resolve-skills.py" "audit sécurité" --json 2>/dev/null || true)"
+  out="$(python3 "$MAESTRO_HOME/resolve-skills.py" "security audit" --json 2>/dev/null || true)"
   echo "$out" | python3 -c "import sys,json; d=json.load(sys.stdin); assert d.get('essential') is not None" \
     2>/dev/null || warn "Smoke test skipped (no skills indexed yet?)"
 }
@@ -139,8 +139,8 @@ main() {
 
   printf '\n'
   info "Open a new Cursor chat — Maestro is active. Try:"
-  printf '  "Fait un audit sécurité réseau"\n'
-  printf '  "Analyse le code avec tes skills"\n\n'
+  printf '  "Run a network security audit"\n'
+  printf '  "Analyze the code with your skills"\n\n'
 }
 
 main "$@"

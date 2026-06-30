@@ -584,15 +584,15 @@ def main() -> int:
         exp = result.get("expansion", {})
         intents = exp.get("matched_intents", [])
         subs = exp.get("sub_queries", [])
-        print(f"Mode: auto (requête naturelle décomposée)")
+        print(f"Mode: auto (natural language query expanded)")
         if intents:
             print(f"Intents: {', '.join(intents)}")
         if subs:
-            print(f"Sous-requêtes ({len(subs)}):")
+            print(f"Sub-queries ({len(subs)}):")
             for sq in subs[:6]:
                 print(f"  · {sq}")
             if len(subs) > 6:
-                print(f"  · … +{len(subs) - 6} autres")
+                print(f"  · … +{len(subs) - 6} more")
 
     cats = result.get("categories_detected", [])
     subcats = result.get("subcategories_detected", [])
@@ -601,14 +601,14 @@ def main() -> int:
     if subcats:
         print(f"Subcategories: {', '.join(subcats)}")
 
-    print(f"\n★ ESSENTIAL — lire SKILL.md complet ({len(result['essential'])}/{args.essential_max}):")
+    print(f"\n★ ESSENTIAL — read full SKILL.md ({len(result['essential'])}/{args.essential_max}):")
     for m in result["essential"]:
         src = f" [{m.get('source', 'scored')}]" if m.get("source") else ""
         print(f"  {m['score']:5.1f}  [{m['category']}/{m['subcategory']}] {m['slug']}{src}")
         print(f"         {m['path']}")
 
     if result["context"]:
-        print(f"\n○ CONTEXT — description index seulement ({len(result['context'])}/{args.context_max}):")
+        print(f"\n○ CONTEXT — index description only ({len(result['context'])}/{args.context_max}):")
         for m in result["context"]:
             desc = m["description"][:90] + ("…" if len(m["description"]) > 90 else "")
             print(f"  {m['score']:5.1f}  {m['slug']} — {desc}")

@@ -1,59 +1,59 @@
 ---
-description: Orchestrateur des agent skills — charge les skills pertinents par conversation, annonce ceux utilisés. Toujours actif.
+description: Agent skills orchestrator — loads relevant skills per conversation, announces those used. Always active.
 alwaysApply: true
 ---
 
-# Orchestrateur auto des skills (Skills Maestro)
+# Auto skills orchestrator (Skills Maestro)
 
-## Principe
+## Principle
 
-Tu disposes potentiellement de **centaines de skills** installés. **Ne jamais** les charger tous d'un coup — seulement ceux **pertinents** pour la tâche.
+You may have **hundreds of skills** installed. **Never** load them all at once — only those **relevant** to the task.
 
-**L'utilisateur n'est pas expert** : il formulera en langage naturel (« audit sécurité réseau », « analyse le code », « c'est performant ? »). **Ne jamais** lui demander de reformuler avec des mots-clés techniques.
+**The user is not an expert**: they will ask in plain language (“network security audit”, “analyze the code”, “is this performant?”). **Never** ask them to rephrase with technical keywords.
 
-**Annoncer les skills utilisés** à chaque tâche non triviale (bloc en tête de réponse).
+**Announce skills used** for every non-trivial task (block at the top of the response).
 
-## Annonce des skills (obligatoire)
+## Skills announcement (required)
 
 ```markdown
-**Skills utilisés** — `slug-1` (essential), `slug-2` (context)
+**Skills used** — `slug-1` (essential), `slug-2` (context)
 
-**Intent détecté** — intent-id-1, intent-id-2
+**Detected intent** — intent-id-1, intent-id-2
 ```
 
-Paliers : `(essential)` = SKILL.md complet ; `(context)` = description index ; `(fast-path)` ; `(sub-agent)`.
+Tiers: `(essential)` = full SKILL.md; `(context)` = index description only; `(fast-path)`; `(sub-agent)`.
 
-## Budget tokens
+## Token budget
 
-| Palier | Max |
+| Tier | Max |
 |---|---|
-| essential (Read complet) | 8 |
+| essential (full Read) | 8 |
 | context (metadata) | 5 |
 
 ## Workflow
 
-1. Reprendre la demande utilisateur telle quelle — **aucune config préalable requise**.
-2. Resolver mode auto (chemin fixe) :
+1. Use the user's request as-is — **no prior configuration required**.
+2. Resolver in auto mode (fixed path):
    ```bash
-   python3 ~/.cursor/skills-maestro/resolve-skills.py "<demande>" --json
+   python3 ~/.cursor/skills-maestro/resolve-skills.py "<request>" --json
    ```
-3. Enrichir avec le **contexte projet** (fichiers ouverts, stack, `AGENTS.md`) sans demander à l'utilisateur.
-4. Essential → `Read` chaque path. Context → description seulement.
-5. Annoncer skills, exécuter, répondre clairement.
+3. Enrich with **project context** (open files, stack, `AGENTS.md`) without asking the user.
+4. Essential → `Read` each path. Context → description only.
+5. Announce skills, execute, respond clearly.
 
 ## Fast-paths
 
 | Signal | Skills |
 |---|---|
-| Analyse / audit code | `code-review`, `review-security` (sub-agent) |
-| Audit sécurité | `review-security` |
+| Code analysis / audit | `code-review`, `review-security` (sub-agent) |
+| Security audit | `review-security` |
 | UI / design | `impeccable`, `ui-ux-pro-max` |
 | PR / CI | `babysit` |
 | Postgres / perf | `postgres`, `performance-engineer` |
 
 ## Maintenance
 
-Nouveaux skills installés :
+After installing new skills:
 ```bash
 python3 ~/.cursor/skills-maestro/build-index.py
 ```
