@@ -1,0 +1,59 @@
+---
+description: Orchestrateur des agent skills — charge les skills pertinents par conversation, annonce ceux utilisés. Toujours actif.
+alwaysApply: true
+---
+
+# Orchestrateur auto des skills (Skills Maestro)
+
+## Principe
+
+Tu disposes potentiellement de **centaines de skills** installés. **Ne jamais** les charger tous d'un coup — seulement ceux **pertinents** pour la tâche.
+
+**L'utilisateur n'est pas expert** : il formulera en langage naturel (« audit sécurité réseau », « analyse le code », « c'est performant ? »). **Ne jamais** lui demander de reformuler avec des mots-clés techniques.
+
+**Annoncer les skills utilisés** à chaque tâche non triviale (bloc en tête de réponse).
+
+## Annonce des skills (obligatoire)
+
+```markdown
+**Skills utilisés** — `slug-1` (essential), `slug-2` (context)
+
+**Intent détecté** — intent-id-1, intent-id-2
+```
+
+Paliers : `(essential)` = SKILL.md complet ; `(context)` = description index ; `(fast-path)` ; `(sub-agent)`.
+
+## Budget tokens
+
+| Palier | Max |
+|---|---|
+| essential (Read complet) | 8 |
+| context (metadata) | 5 |
+
+## Workflow
+
+1. Reprendre la demande utilisateur telle quelle — **aucune config préalable requise**.
+2. Resolver mode auto (chemin fixe) :
+   ```bash
+   python3 ~/.cursor/skills-maestro/resolve-skills.py "<demande>" --json
+   ```
+3. Enrichir avec le **contexte projet** (fichiers ouverts, stack, `AGENTS.md`) sans demander à l'utilisateur.
+4. Essential → `Read` chaque path. Context → description seulement.
+5. Annoncer skills, exécuter, répondre clairement.
+
+## Fast-paths
+
+| Signal | Skills |
+|---|---|
+| Analyse / audit code | `code-review`, `review-security` (sub-agent) |
+| Audit sécurité | `review-security` |
+| UI / design | `impeccable`, `ui-ux-pro-max` |
+| PR / CI | `babysit` |
+| Postgres / perf | `postgres`, `performance-engineer` |
+
+## Maintenance
+
+Nouveaux skills installés :
+```bash
+python3 ~/.cursor/skills-maestro/build-index.py
+```

@@ -1,0 +1,5 @@
+{
+  "name": "",
+  "description": "Optional. Queries appended automatically on vague security/code audits. Leave empty if unsure.",
+  "context_queries": []
+}

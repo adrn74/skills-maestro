@@ -1,0 +1,12 @@
+{
+  "roots": [
+    {
+      "path": "~/.agents/skills",
+      "label": "agents"
+    },
+    {
+      "path": "./.agents/skills",
+      "label": "project-agents"
+    }
+  ]
+}
