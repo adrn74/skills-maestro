@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Cursor Skills Maestro — one-command installer
+# Skills Maestro — one-command installer
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/adriengirin/cursor-skills-maestro/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/adrn74/skills-maestro/main/install.sh | bash
 #   ./install.sh   (from a cloned repo)
 set -euo pipefail
 
-SKILLS_MAESTRO_REPO="${SKILLS_MAESTRO_REPO:-https://github.com/adriengirin/cursor-skills-maestro.git}"
+SKILLS_MAESTRO_REPO="${SKILLS_MAESTRO_REPO:-https://github.com/adrn74/skills-maestro.git}"
 SKILLS_MAESTRO_BRANCH="${SKILLS_MAESTRO_BRANCH:-main}"
 MAESTRO_HOME="${SKILLS_MAESTRO_HOME:-$HOME/.cursor/skills-maestro}"
 RULES_DIR="${CURSOR_RULES_DIR:-$HOME/.cursor/rules}"
@@ -105,7 +105,7 @@ smoke_test() {
 }
 
 main() {
-  printf '\n\033[1mCursor Skills Maestro\033[0m — install\n\n'
+  printf '\n\033[1mSkills Maestro\033[0m — install\n\n'
 
   preflight
 

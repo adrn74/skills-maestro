@@ -1,4 +1,4 @@
-# Cursor Skills Maestro
+# Skills Maestro
 
 Orchestrateur open source pour [Cursor](https://cursor.com) : route automatiquement vers les **bons agent skills** parmi des centaines d'installés, sans exploser le budget tokens.
 
@@ -7,7 +7,7 @@ Dis « fait un audit sécurité réseau » ou « analyse le code avec tes skills
 ## Installation (une commande)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/adriengirin/cursor-skills-maestro/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/adrn74/skills-maestro/main/install.sh | bash
 ```
 
 C'est tout. Automatiquement :
@@ -22,8 +22,8 @@ C'est tout. Automatiquement :
 ### Repo pas encore publié ?
 
 ```bash
-git clone https://github.com/adriengirin/cursor-skills-maestro.git
-cd cursor-skills-maestro && ./install.sh
+git clone https://github.com/adrn74/skills-maestro.git
+cd skills-maestro && ./install.sh
 ```
 
 ### Variables optionnelles
@@ -91,7 +91,7 @@ MIT — [LICENSE](LICENSE)
 **One-command install:**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/adriengirin/cursor-skills-maestro/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/adrn74/skills-maestro/main/install.sh | bash
 ```
 
 Open a new Cursor chat. Ask anything in plain language. No config required.

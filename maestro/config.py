@@ -1,4 +1,4 @@
-"""Shared paths for Cursor Skills Maestro."""
+"""Shared paths for Skills Maestro."""
 
 from __future__ import annotations
 
